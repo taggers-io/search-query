@@ -74,6 +74,7 @@ class GroupingResolver implements ResolverContract
                 $nodes = $this->splitNode(Nodes\TextNode::class, $node, $new_node, $start, $start + $length);
 
                 $this->resolveParenthesis($nodes[count($nodes) - 1]);
+                break;
             }
         }
     }
