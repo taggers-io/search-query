@@ -29,6 +29,7 @@ class QueryTest extends TestCase
             new Resolvers\DateFormatFunctionResolver(),
             new Resolvers\ConcatFunctionResolver(),
             new Resolvers\NowFunctionResolver(),
+            new Resolvers\SubdateFunctionResolver(),
             new Resolvers\NotEqResolver(),
             new Resolvers\EqResolver(),
             new Resolvers\LteResolver(),
@@ -82,6 +83,19 @@ class QueryTest extends TestCase
         $this->assertEquals(Nodes\GtNode::class, get_class($result));
         $this->assertEquals('y', $result->getChildByIndex(0)->getValue());
         $this->assertEquals(Nodes\NowFunctionNode::class, get_class($result->getChildByIndex(1)));
+    }
+
+    public function testFunctionSubdate()
+    {
+        $query = $this->parser;
+
+        $result = $query->parse('x gt subdate(y,30)');
+
+        $this->assertEquals(Nodes\GtNode::class, get_class($result));
+        $this->assertEquals('x', $result->getChildByIndex(0)->getValue());
+        $this->assertEquals(Nodes\SubdateFunctionNode::class, get_class($result->getChildByIndex(1)));
+        $this->assertEquals('y', $result->getChildByIndex(1)->getChildByIndex(0)->getValue());
+        $this->assertEquals('30', $result->getChildByIndex(1)->getChildByIndex(1)->getValue());
     }
 
     public function testExceptionFunction()

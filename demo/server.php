@@ -20,6 +20,7 @@ $parser->addResolvers([
     new Resolvers\DateFormatFunctionResolver(),
     new Resolvers\ConcatFunctionResolver(),
     new Resolvers\NowFunctionResolver(),
+    new Resolvers\SubdateFunctionResolver(),
     new Resolvers\NotEqResolver(),
     new Resolvers\EqResolver(),
     new Resolvers\LteResolver(),
